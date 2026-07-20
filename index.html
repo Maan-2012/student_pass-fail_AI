@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Pass Prediction AI</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:
+linear-gradient(rgba(255,255,255,0.82), rgba(255,255,255,0.82)),
+url("background.png");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+background-attachment:fixed;
+color:#333;
+padding-top:95px;
+}
+header{
+background:rgba(0,119,204,0.85);
+color:white;
+padding:25px;
+text-align:center;
+position:relative;
+margin-top:48px;
+backdrop-filter:blur(6px);
+}
+.logo{
+position:absolute;
+top:15px;
+left:25px;
+width:75px;
+height:75px;
+object-fit:contain;
+background:white;
+padding:5px;
+border-radius:50%;
+box-shadow:0 3px 10px rgba(0,0,0,0.2);
+}
+
+nav{
+background:rgba(0,63,127,0.90);
+display:flex;
+justify-content:center;
+gap:25px;
+padding:12px;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+z-index:1000;
+box-shadow:0 2px 10px rgba(0,0,0,.2);
+backdrop-filter:blur(8px);
+}
+
+nav a{
+color:white;
+text-decoration:none;
+font-weight:bold;
+}
+
+nav a:hover{
+color:#ffd54f;
+}
+
+.hero{
+padding:60px 20px;
+text-align:center;
+background:rgba(220,238,255,0.40);
+backdrop-filter:blur(5px);
+}
+
+.hero h1{
+font-size:42px;
+margin-bottom:15px;
+}
+
+.hero p{
+font-size:20px;
+}
+
+.container{
+width:90%;
+max-width:1100px;
+margin:auto;
+padding:30px 0;
+}
+
+.card{
+background:white;
+padding:25px;
+margin-bottom:25px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,.12);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+h2{
+color:#0077cc;
+margin-bottom:15px;
+}
+
+.card p,
+.card li,
+.card td,
+.card th{
+font-size:18px;
+line-height:1.7;
+}
+
+.card h2{
+font-size:32px;
+}
+
+.card h3{
+font-size:24px;
+}
+
+html{
+scroll-padding-top:80px;
+}
+#problem,
+#data,
+#explore,
+#model,
+#evaluate,
+#deploy{
+scroll-margin-top:80px;
+}
+
+input,select{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:8px;
+}
+
+button{
+background:#0077cc;
+color:white;
+padding:12px 25px;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#0056b3;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
+}
+
+table,th,td{
+border:1px solid #ccc;
+}
+
+th{
+background:#0077cc;
+color:white;
+}
+
+th,td{
+padding:12px;
+text-align:center;
+}
+
+#result{
+margin-top:20px;
+font-size:24px;
+font-weight:bold;
+}
+
+footer{
+background:rgba(0,63,127,0.85);
+color:white;
+text-align:center;
+padding:18px;
+margin-top:30px;
+backdrop-filter:blur(6px);
+}
+
+</style>
+
+</head>
+<body>
+
+<header>
+
+<img src="dps-logo.jpeg" alt="DPS Logo" class="logo">
+
+<h1>Student Pass Prediction AI</h1>
+<p>Artificial Intelligence Project</p>
+
+</header>
+
+<nav>
+<a href="#problem">Problem Scoping</a>
+<a href="#data">Data Acquisition</a>
+<a href="#explore">Data Exploration</a>
+<a href="#model">Modeling</a>
+<a href="#evaluate">Evaluation</a>
+<a href="#deploy">Deployment</a>
+</nav>
+
+
+<div class="container">
+
+<div class="card" id="problem">
+<h2>1. Problem Scoping</h2>
+<p>
+The objective is to predict whether a student will pass or fail based on
+study hours, attendance, homework completion and previous marks.
+</p>
+<h3 style="margin-top:25px; color:#0077cc;">Problem Statement Template</h3>
+
+<p>
+Using the 4Ws Canvas, the problem statement can be summarized as follows:
+</p>
+
+<table>
+
+<tr>
+<th>Category</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td><b>Our (Who)</b></td>
+<td>Students preparing for examinations</td>
+</tr>
+
+<tr>
+<td><b>Have a problem that (What)</b></td>
+<td>They are unable to predict whether they are likely to pass or need additional academic support.</td>
+</tr>
+
+<tr>
+<td><b>When / While (Where)</b></td>
+<td>During their exam preparation period before the final examinations.</td>
+</tr>
+
+<tr>
+<td><b>An ideal solution would (Why)</b></td>
+<td>Predict student performance using AI so that teachers and students can take timely action to improve results.</td>
+</tr>
+
+</table>
+
+<br>
+
+<p>
+<b>Problem Statement:</b><br><br>
+An AI-based system predicts student performance using study hours, attendance, homework completion, previous marks, and time spent online to identify students who may require additional academic support.
+</p>
+</div>
+
+<div class="card" id="data">
+<h2>2. Data Acquisition</h2>
+<p>
+Data Acquisition is the process of collecting student information such as
+study hours, attendance, homework completion, previous marks, and time spent
+online. Accurate data helps the AI model make reliable predictions.
+</p>
+<input type="text" placeholder="Student Name">
+
+<input type="number" id="hours" placeholder="Study Hours">
+
+<input type="number" id="attendance" placeholder="Attendance (%)">
+
+<input type="number" id="marks" placeholder="Previous Marks">
+
+<input type="number" id="online" placeholder="Time Spent Online">
+
+<select>
+<option>Homework Completed - Yes</option>
+<option>Homework Completed - No</option>
+</select>
+
+<button onclick="predict()">Predict</button>
+
+<div id="result"></div>
+
+</div>
+
+<div class="card" id="explore">
+
+<h2>3. Data Exploration</h2>
+<p>
+The collected data is cleaned, organized, and analyzed to identify patterns.
+This helps the AI understand how different factors influence a student's
+academic performance before training the model.
+</p>
+
+<br>
+
+<h3>Sample Student Dataset</h3>
+
+<table>
+
+<tr>
+<th>Student</th>
+<th>Study Hours</th>
+<th>Attendance</th>
+<th>Time Online</th>
+<th>Homework</th>
+<th>Previous Marks</th>
+<th>Result</th>
+</tr>
+
+<tr>
+<td>Rahul</td>
+<td>3</td>
+<td>95%</td>
+<td>2 hrs</td>
+<td>Yes</td>
+<td>82</td>
+<td>Pass</td>
+</tr>
+
+<tr>
+<td>Ananya</td>
+<td>2</td>
+<td>88%</td>
+<td>3 hrs</td>
+<td>Yes</td>
+<td>75</td>
+<td>Pass</td>
+</tr>
+
+<tr>
+<td>Arjun</td>
+<td>1</td>
+<td>60%</td>
+<td>6 hrs</td>
+<td>No</td>
+<td>42</td>
+<td>Fail</td>
+</tr>
+
+<tr>
+<td>Priya</td>
+<td>4</td>
+<td>97%</td>
+<td>1 hr</td>
+<td>Yes</td>
+<td>91</td>
+<td>Pass</td>
+</tr>
+
+<tr>
+<td>Karan</td>
+<td>2</td>
+<td>70%</td>
+<td>5 hrs</td>
+<td>No</td>
+<td>48</td>
+<td>Fail</td>
+</tr>
+
+</table>
+
+<br>
+
+<h3>Observations</h3>
+
+<ul style="margin-left:25px; line-height:1.8;">
+<li>Students who study for more than <b>2 hours</b> usually perform better.</li>
+<li>Attendance above <b>75%</b> increases the chances of passing.</li>
+<li>Students who complete homework regularly score higher marks.</li>
+<li>Previous examination marks help predict future performance.</li>
+<li>Students who spend excessive time online for non-academic purposes <br>
+may have lower academic performance due to reduced study time.</li>
+<li>The cleaned dataset is then sent to the AI model for training.</li>
+</ul>
+
+</div>
+<div class="card" id="model">
+
+<h2>4. Modeling</h2>
+
+<p>
+The trained model is tested using new student data to measure its accuracy.
+If the predictions are incorrect, the model is improved by retraining it
+with better-quality data.
+</p>
+
+<h3 style="margin-top:20px; color:#0077cc;">Model Inputs</h3>
+
+<table>
+
+<tr>
+<th>Input Feature</th>
+<th>Purpose</th>
+</tr>
+
+<tr>
+<td>Study Hours</td>
+<td>Measures the amount of time spent studying each day.</td>
+</tr>
+
+<tr>
+<td>Attendance</td>
+<td>Shows the student's regularity in attending classes.</td>
+</tr>
+
+<tr>
+<td>Homework Completion</td>
+<td>Indicates whether assignments are completed regularly.</td>
+</tr>
+
+<tr>
+<td>Previous Marks</td>
+<td>Provides information about past academic performance.</td>
+</tr>
+
+</table>
+
+<br>
+
+<h3 style="color:#0077cc;">Prediction Logic</h3>
+
+<ul style="margin-left:25px; line-height:1.8;">
+<li>Study Hours ≥ 2 hours</li>
+<li>Attendance ≥ 75%</li>
+<li>Previous Marks ≥ 50</li>
+<li>Homework Completed = Yes (preferred)</li>
+<li>Time spent online ≤ 4</li>
+</ul>
+
+<p style="margin-top:15px;">
+If most of these conditions are satisfied, the AI predicts that the student is
+likely to <b>Pass</b>. Otherwise, it predicts that the student may
+<b>Need Improvement</b>.
+</p>
+
+</div>
+<div class="card" id="evaluate">
+
+<h2>5. Evaluation</h2>
+<p>
+The trained model is tested using new student data to measure its accuracy.
+If the predictions are incorrect, the model is improved by retraining it
+with better-quality data.
+</p>
+
+</div>
+
+<div class="card" id="deploy">
+
+<h2>6. Deployment</h2>
+<p>
+After successful testing, the AI model is deployed so teachers can use it to
+predict student performance and identify students who may need additional
+academic support.
+</p>
+
+</div>
+
+</div>
+
+<footer>
+<p>© 2026 Student Pass Prediction AI Project</p>
+<hr style="width:250px; margin:12px auto; border:1px solid rgba(255,255,255,0.3);">
+<p style="font-size:18px; font-weight:bold; letter-spacing:1px;">
+By Maan Chauhan 9B
+</p>
+</footer>
+
+<script>
+
+function predict(){
+
+let h = Number(document.getElementById("hours").value);
+let a = Number(document.getElementById("attendance").value);
+let m = Number(document.getElementById("marks").value);
+let o = Number(document.getElementById("online").value);
+
+let result = document.getElementById("result");
+
+if(h >= 2 && a >= 75 && m >= 50 && o <= 4){
+
+    result.innerHTML = "Prediction: PASS";
+    result.style.color = "green";
+
+}
+else{
+
+    result.innerHTML = "Prediction: NEEDS IMPROVEMENT";
+    result.style.color = "red";
+
+}
+
+}
+</script>
+
+</body>
+</html>
